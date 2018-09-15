@@ -1,5 +1,4 @@
 from aiohttp import web
-from asyncio_redis import Pool as RedisPool
 from simple_settings import settings
 
 from .healthcheck.routes import register_routes as register_heathcheck_routes
@@ -23,14 +22,8 @@ def get_middlewares():
 
 
 async def load_plugins(app):
-    redis = await RedisPool.create(
-        host=settings.REDIS_HOST,
-        port=settings.REDIS_PORT,
-        poolsize=settings.REDIS_POOLSIZE,
-        loop=app.loop
-    )
-    app.redis = redis
+    print('load_plugins')
 
 
 async def cleanup_plugins(app):
-    app.redis.close()
+    print('cleanup_plugins')
