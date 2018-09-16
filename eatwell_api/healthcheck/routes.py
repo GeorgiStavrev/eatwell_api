@@ -1,4 +1,4 @@
-from .views import HealthCheckView
+from eatwell_api.healthcheck.views import HealthCheckView
 
 
 def register_routes(app):
