@@ -1,6 +1,6 @@
 import asyncio
 
-from .factory import build_app
+from eatwell_api.factory import build_app
 
 
 loop = asyncio.get_event_loop()
