@@ -1,1 +1,1 @@
-from .base import *  # noqa
+from eatwell_api.settings.base import *  # noqa
