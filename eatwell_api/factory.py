@@ -7,8 +7,10 @@ from eatwell_api.dish.routes import register_routes as register_dish_routes
 from eatwell_api.recipe.routes import register_routes as register_recipe_routes
 from eatwell_api.shoppingList.routes import register_routes as register_shoppingList_routes
 from eatwell_api.menu.routes import register_routes as register_menu_routes
+
 from eatwell_api.middlewares.version import version_middleware
 from eatwell_api.middlewares.request_logger import request_logger_middleware
+from eatwell_api.middlewares.auth import auth_middleware
 
 from mongoengine import connect
 import datetime
@@ -34,7 +36,7 @@ def register_routes(app):
 
 
 def get_middlewares():
-    return [version_middleware, request_logger_middleware]
+    return [version_middleware, request_logger_middleware, auth_middleware]
 
 
 async def load_plugins(app):

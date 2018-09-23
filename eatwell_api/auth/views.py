@@ -4,10 +4,10 @@ import hashlib
 import uuid
 import re
 import jwt
+from simple_settings import settings
 
 BASE_ROUTE = '/auth'
 EMAIL_REGEX = '^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$'
-SECRET = "DSAJKHGDASJKHASD"
 
 
 class LoginView(web.View):
@@ -76,5 +76,6 @@ def _unauthorized():
 
 
 def _token_response(user):
-    encoded = jwt.encode({'email': user.email}, SECRET, algorithm='HS256')
+    encoded = jwt.encode({'email': user.email},
+                         settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
     return web.json_response({'token': encoded.decode()})
