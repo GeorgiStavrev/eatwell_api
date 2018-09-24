@@ -1,5 +1,5 @@
 from aiohttp import web
-from eatwell_api.models.user import User
+from eatwell_api.models.models import User
 import hashlib
 import uuid
 import re

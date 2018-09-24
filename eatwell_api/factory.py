@@ -14,7 +14,7 @@ from eatwell_api.middlewares.auth import auth_middleware
 
 from mongoengine import connect
 import datetime
-from eatwell_api.models.dbmeta import Metadata
+from eatwell_api.models.models import Metadata
 
 
 def build_app(loop=None):

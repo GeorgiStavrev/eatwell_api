@@ -1,7 +1,7 @@
 import jwt
 from simple_settings import settings
-from aiohttp import web_urldispatcher
-from eatwell_api.models.user import User
+from aiohttp import web
+from eatwell_api.models.models import User
 
 
 async def auth_middleware(app, handler):

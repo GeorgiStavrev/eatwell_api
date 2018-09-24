@@ -1,4 +1,4 @@
-from eatwell_api.models.dish import Dish
+from eatwell_api.models.models import Dish
 from eatwell_api.base_view import BaseView
 
 BASE_ROUTE = '/api/v1/dish'

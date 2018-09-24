@@ -1,24 +1,25 @@
 from aiohttp import web
+from eatwell_api.base_view import BaseView
+from eatwell_api.models.models import ShoppingList
 
-items = [
-    {'name': "lamb mince", 'quantity': "750g/1lb 10½oz"},
-    {'name': "onion, finely chopped", 'quantity': "1"},
-    {'name': "garlic cloves, crushed", 'quantity': "2"},
-    {'name': "dried oregano", 'quantity': "1 tsp"},
-    {'name': "dried mint", 'quantity': "1½ tsp"},
-    {'name': "bay leaf", 'quantity': "1"},
-    {'name': "cinnamon", 'quantity': "1 stick"},
-    {'name': "plain flour", 'quantity': "1 tbsp"},
-    {'name': "tomato purée", 'quantity': "2 tbsp"},
-    {'name': "aubergines, cut into 0.5cm slices", 'quantity': "2"},
-    {
-        'name': "Maris Piper potatoes, peeled and thinly sliced",
-        'quantity': "500g/1lb 2oz"
-    },
-    {'name': "freshly ground black pepper"}
-]
+BASE_ROUTE = '/api/v1/shoppingList'
 
 
-class ShoppingListView(web.View):
-    async def get(self):
-        return web.json_response(items)
+class ShoppingListView(BaseView):
+    def get_model(self):
+        return ShoppingList
+
+    def get_base_route(self):
+        return BASE_ROUTE
+
+    def get_protected_routes(self):
+        return self._protect_base_routes(BASE_ROUTE)
+
+    def set_record_props_from_data(self, record, data):
+        record.name = data['name']
+
+    def record_to_dict(self, record):
+        result = super(ShoppingListView, self).record_to_dict(record)
+        result['name'] = record.name
+
+        return result

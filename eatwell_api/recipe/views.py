@@ -1,5 +1,5 @@
 from aiohttp import web
-from eatwell_api.models.recipe import Recipe, RecipeIngredient
+from eatwell_api.models.models import Recipe, RecipeIngredient
 from eatwell_api.base_view import BaseView
 
 BASE_ROUTE = '/api/v1/recipe'
