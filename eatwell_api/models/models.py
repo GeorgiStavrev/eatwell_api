@@ -9,6 +9,8 @@ class Metadata(Document):
 
 class User(Document):
     email = StringField(required=True, max_length=40)
+    first_name = StringField(required=True, max_length=50)
+    last_name = StringField(required=True, max_length=100)
     hashed_password = StringField(required=True, max_length=512)
     salt = StringField(required=True, max_length=100)
     last_modified = DateTimeField(required=True, default=datetime.datetime.now)

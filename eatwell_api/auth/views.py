@@ -31,15 +31,21 @@ class RegisterView(web.View):
     async def post(self):
         try:
             data = await self.request.json()
-            if 'email' in data and _validate_email(data['email']) and 'password' in data:
+            if 'email' in data and _validate_email(
+                    data['email']) and 'password' in data:
                 if _find_user(data['email']):
-                    return web.json_response({'error_code': 1, 'message': 'Already registers.'})
+                    return web.json_response({
+                        'error_code': 1,
+                        'message': 'Already registers.'
+                    })
 
                 salt = _get_salt()
                 hashed_pass = _get_hash(data['password'], salt)
 
                 new_user = User()
                 new_user.email = data['email']
+                new_user.first_name = data['first_name']
+                new_user.last_name = data['last_name']
                 new_user.salt = salt
                 new_user.hashed_password = hashed_pass
                 new_user.save()
@@ -76,6 +82,11 @@ def _unauthorized():
 
 
 def _token_response(user):
-    encoded = jwt.encode({'email': user.email},
-                         settings.JWT_SECRET, algorithm=settings.JWT_ALGORITHM)
+    encoded = jwt.encode({
+        'first_name': user.first_name,
+        'last_name': user.last_name,
+        'email': user.email
+    },
+                         settings.JWT_SECRET,
+                         algorithm=settings.JWT_ALGORITHM)
     return web.json_response({'token': encoded.decode()})
