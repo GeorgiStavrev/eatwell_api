@@ -6,7 +6,7 @@ export IMG_NAME=eatwell_api
 export REPO_NAME=eatwell_api
 export DNS_NAME=eatwell-api
 export CONTAINER_NAME=eatwell-api
-export TAG=latest
+export TAG=v$CIRCLE_BUILD_NUM
 
 # LOGIN to AZURE AND AZURE CONTAINER REGISTRY
 az login --service-principal -u $AZUSR -p $AZPASS --tenant $AZTENANT
