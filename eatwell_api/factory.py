@@ -19,6 +19,7 @@ from eatwell_api.models.models import Metadata
 
 def build_app(loop=None):
     app = web.Application(loop=loop, middlewares=get_middlewares())
+    app.state = dict()
     app.on_startup.append(load_plugins)
     app.on_startup.append(setup)
     app.on_cleanup.append(cleanup_plugins)
@@ -54,8 +55,11 @@ async def setup(app):
 
 
 def setup_db(app):
-    connect(db=settings.DBNAME, host=settings.MONGO_HOST,
-            port=settings.MONGO_PORT)
-    meta = Metadata()
-    meta.info = "SERVER_STARTED"
-    meta.save()
+    try:
+        connect(host=settings.MONGO_CONNSTR, db=settings.DBNAME)
+        meta = Metadata()
+        meta.info = "SERVER_STARTED"
+        meta.save()
+        app.state['db'] = "CONNECTED"
+    except Exception as e:
+        app.state['db'] = "ERROR CONNECTING: " + str(e)

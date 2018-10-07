@@ -3,6 +3,7 @@ services:
   api:
     build: .
     container_name: "eatwell_api"
+    command: make run-prod
     ports:
       - 8080:8080
     depends_on:
