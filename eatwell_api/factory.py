@@ -63,4 +63,4 @@ def setup_db(app):
         meta.save()
         app.state['db'] = "CONNECTED"
     except Exception as e:
-        app.state['db'] = "ERROR CONNECTING: " + str(e)
+        app.state['db'] = "ERROR CONNECTING"
