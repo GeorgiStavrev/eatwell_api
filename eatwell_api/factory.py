@@ -24,6 +24,7 @@ def build_app(loop=None):
     app.on_startup.append(setup)
     app.on_cleanup.append(cleanup_plugins)
     register_routes(app)
+    app.state['routes'] = True
     return app
 
 
