@@ -2,9 +2,10 @@ from aiohttp import web
 import json
 import datetime
 from eatwell_api.decorators.auth import check_auth
+from aiohttp_cors import CorsViewMixin
 
 
-class BaseView(web.View):
+class BaseView(web.View, CorsViewMixin):
 
     def get_model(self):
         ...

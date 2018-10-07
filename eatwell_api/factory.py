@@ -15,6 +15,7 @@ from eatwell_api.middlewares.auth import auth_middleware
 from mongoengine import connect
 import datetime
 from eatwell_api.models.models import Metadata
+import aiohttp_cors
 
 
 def build_app(loop=None):
@@ -25,6 +26,19 @@ def build_app(loop=None):
     app.on_cleanup.append(cleanup_plugins)
     register_routes(app)
     app.state['routes'] = True
+
+    # Configure CORS on all routes.
+
+    cors = aiohttp_cors.setup(app, defaults={
+    "*": aiohttp_cors.ResourceOptions(
+            allow_credentials=True,
+            expose_headers="*",
+            allow_headers="*",
+        )
+    })
+    for route in list(app.router.routes()):
+        cors.add(route)
+    app.state["CORS"] = "Permissive"
     return app
 
 

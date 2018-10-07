@@ -1,4 +1,5 @@
 from aiohttp import web
+from aiohttp_cors import CorsViewMixin
 from eatwell_api.models.models import User
 import hashlib
 import uuid
@@ -10,7 +11,7 @@ BASE_ROUTE = '/auth'
 EMAIL_REGEX = '^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$'
 
 
-class LoginView(web.View):
+class LoginView(web.View, CorsViewMixin):
     async def post(self):
         try:
             data = await self.request.json()
@@ -27,7 +28,7 @@ class LoginView(web.View):
             return _unauthorized()
 
 
-class RegisterView(web.View):
+class RegisterView(web.View, CorsViewMixin):
     async def post(self):
         try:
             data = await self.request.json()
